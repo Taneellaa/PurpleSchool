@@ -10,6 +10,7 @@ const page = {
     progressPercent: document.querySelector('.progress__percent'),
     progressCoverBar: document.querySelector('.progress__cover-bar'),
   },
+  habbitsList: document.querySelector('.habbits__list'),
 };
 
 //utils
@@ -65,16 +66,35 @@ const rerenderHead = (activeHabbit) => {
     activeHabbit.days.length / activeHabbit.target > 1
       ? 100
       : (activeHabbit.days.length / activeHabbit.target) * 100;
-  console.log(progress);
   page.header.progressPercent.textContent = `${progress.toFixed(0)}%`;
   page.header.progressCoverBar.style.width = `${progress.toFixed(0)}%`;
 };
 
+const renderHabbits = (habbits) => {
+  if (!habbits) {
+    return alert('Данные отсутствуют!');
+  }
+
+  console.log(habbits);
+
+  for (const habbit of habbits) {
+    const element = document.createElement('li');
+    element.classList.add('habbit');
+    element.innerHTML = `
+      <div class="habbit__day">День ${habbit.days.length}</div>
+      <div class="habbit__comment">${
+        habbit.days[habbit.days.length - 1].comment
+      }</div>
+    `;
+    page.habbitsList.appendChild(element);
+  }
+};
+
 const rereneder = (activeHabbitId) => {
   const activeHabbit = habbits.find((habbit) => habbit.id === activeHabbitId);
-  console.log(activeHabbit);
   rerenderMenu(activeHabbit);
   rerenderHead(activeHabbit);
+  renderHabbits(habbits);
 };
 
 //init
