@@ -226,6 +226,10 @@ button {
   flex: 1;
 }
 
+.habbit__input--error {
+  border-color: red;
+}
+
 .habbit__input::placeholder {
   color: #8899a8;
 }
